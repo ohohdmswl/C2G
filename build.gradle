@@ -24,14 +24,23 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'						// 스프링시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-web'							// 스프링 웹
+	compileOnly 'org.projectlombok:lombok'														// 롬복
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'								// 스프링 개발툴	
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	/* 그래들 추가 */
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'									// JSP
+	//implementation 'javax.servlet:jstl'															// JSTL			
+	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'	// JSTL
+	
+	implementation 'org.springframework.boot:spring-boot-starter'									// logback
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'										// swagger
 }
 
 tasks.named('test') {
