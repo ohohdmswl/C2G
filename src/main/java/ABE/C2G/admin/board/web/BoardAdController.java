@@ -27,8 +27,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BoardAdController {
 
 	// 관리자-게시판 service
-	@Resource(name = "boardAdService")
-	private BoardAdServiceImpl boardAdService;
+//	@Autowired(name = "boardAdService")
+	@Autowired
+	private BoardAdService boardAdService;
 	
 	// 환경변수 의존성 주입
 //	@Autowired
@@ -43,6 +44,7 @@ public class BoardAdController {
 			) throws IOException, SQLException {
 		
 //		model.addAttribute("test",boardAdService.selectBoardAdList(searchVO));
+		logger.info("test : " + boardAdService.selectBoardAdList());
 		
 		return "admin/board/boardList";
 	}

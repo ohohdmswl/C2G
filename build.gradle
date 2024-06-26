@@ -41,7 +41,21 @@ dependencies {
 	
 	implementation 'org.springframework.boot:spring-boot-starter'									// logback
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'										// swagger
+	
+	
+
+	implementation 'org.postgresql:postgresql:42.5.0'												// postgreSQL	
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'							// log4jdbc-log4j2
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'						// mybatis
+	implementation 'org.mybatis:mybatis-spring:3.0.1'												// mybatis
+	implementation "org.mybatis:mybatis:3.4.5"														// mybatis
+	
+	
+	
 }
+
+
+
 
 tasks.named('test') {
 	useJUnitPlatform()
