@@ -17,6 +17,8 @@
 		
 		<!-- 게시판 VO -->
 		<typeAlias alias="boardVO" 				type="ABE.C2G.cmmn.model.BoardVO"/>
+		
+		
 	</typeAliases>
 
 

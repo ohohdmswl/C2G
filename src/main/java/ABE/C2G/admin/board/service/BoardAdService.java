@@ -10,4 +10,6 @@ public interface BoardAdService {
 
 	public List<Map<String, Object>> selectBoardAdList();
 
+	public List<BoardVO> selectBoardAdList(BoardVO searchVO);
+
 }

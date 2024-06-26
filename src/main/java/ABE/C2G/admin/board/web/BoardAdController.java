@@ -42,10 +42,18 @@ public class BoardAdController {
 	public String boardAdListView(@ModelAttribute("searchVO") BoardVO searchVO, 
 			ModelMap model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response
 			) throws IOException, SQLException {
+		logger.info("--- 관리자 게시판 목록 조회 start ---");
+
+//		logger.info("# DB연결 테스트 : " + boardAdService.selectBoardAdList());
 		
-//		model.addAttribute("test",boardAdService.selectBoardAdList(searchVO));
-		logger.info("test : " + boardAdService.selectBoardAdList());
 		
+		
+		
+		
+//		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
+		logger.info("# DB연결 테스트2 : " + boardAdService.selectBoardAdList(searchVO));
+		
+		logger.info("--- 관리자 게시판 목록 조회 end ---");
 		return "admin/board/boardList";
 	}
 	

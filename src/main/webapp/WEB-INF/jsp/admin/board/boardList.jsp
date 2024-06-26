@@ -1,14 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jsp/layout/taglib.jsp" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+
+
+<!--  js  -->
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/pagination.js"></script> 
+
+<title>SometingProject</title>
 </head>
 <body>
 
-°ü¸®ÀÚ °Ô½ÃÆÇ ¸®½ºÆ® jsp
+
+ê´€ë¦¬ì ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸ jsp
+
+
+
+
+
+<div id="pagination"></div>
+
+
+
+
 
 </body>
 </html>
