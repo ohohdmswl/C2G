@@ -52,9 +52,11 @@ public class BoardAdController {
 		
 //		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
 		logger.info("# DB연결 테스트2 : " + boardAdService.selectBoardAdList(searchVO));
+		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
 		
 		logger.info("--- 관리자 게시판 목록 조회 end ---");
 		return "admin/board/boardList";
+//		return "admin/board/pagnationExample";
 	}
 	
 
