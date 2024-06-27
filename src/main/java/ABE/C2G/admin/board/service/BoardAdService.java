@@ -12,4 +12,6 @@ public interface BoardAdService {
 
 	public List<BoardVO> selectBoardAdList(BoardVO searchVO);
 
+	public List<Map<String, Object>> selectBoardAdSearchList(BoardVO searchVO);
+
 }

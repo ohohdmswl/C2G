@@ -18,6 +18,14 @@
 					, created
 		FROM		testBoards
 	</select>
+	<select id="selectBoardAdSearchList" parameterType="boardVO" resultType="map">
+			SELECT
+					board_id
+					, wrtr
+					, cnt 
+					, created
+		FROM		testBoards
+	</select>
 
 
 </mapper>

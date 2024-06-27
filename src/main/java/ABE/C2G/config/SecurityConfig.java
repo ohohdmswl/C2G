@@ -19,6 +19,12 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		
 		http
+				// 현재 사용하는 시큐리티 버전 -> 6.3.1
+				// 시큐리티 5는  .csrf().disable() 사용 가능
+				// 시큐리티 6은  .csrf(csrf -> csrf.disable()) -> authorizeHttpRequests 밑 위치에서는 에러
+				// .csrf().disable()  // CSRF 보호 비활성화
+				.csrf(csrf -> csrf.disable())
+				
 				.authorizeHttpRequests((authorizeRequests)->
 						authorizeRequests
 //								.requestMatchers(PathRequest.toH2Console()).permitAll()		// H2 콘솔 접근 허용

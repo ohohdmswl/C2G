@@ -33,4 +33,9 @@ public class BoardAdServiceImpl implements BoardAdService{
 	public List<BoardVO> selectBoardAdList(BoardVO searchVO) {
 		return cmmnDAO.selectList("board.selectBoardAdList1", searchVO);
 	}
+	
+	@Override
+	public List<Map<String, Object>> selectBoardAdSearchList(BoardVO searchVO) {
+		return cmmnDAO.selectList("board.selectBoardAdSearchList", searchVO);
+	}
 }
