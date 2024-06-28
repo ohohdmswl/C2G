@@ -97,6 +97,7 @@ var dataSource2;
 	        	// 페이지네이션 설정값 세팅(pagination객체 내)
 	        	pageSize: 10,								// 페이지당 데이터 항목 수 10
 	        	pageNumber: 1,								// 첫 페이지 번호 1
+// 	        	pageRange: 3, 								// 페이지네이션 블록 개수 (default : 6)
 	        	autoHidePrevious: true,						// 이전 버튼 자동설정
 	        	autoHideNext: true,							// 다음 버튼 자동설정
 				dataSource : dataSource2,					// 데이터
@@ -160,7 +161,7 @@ var dataSource2;
 	    	var rnum = pagination.totalNumber - ( (pagination.pageNumber - 1 ) * pagination.pageSize) - index
 	    	
 	    	dataHtml += '<tr id="board' + rnum + '">';
-	    	dataHtml += '<td><input type="checkbox" id="delChk" name="delChk"/></td>';
+	    	dataHtml += '<td><input type="checkbox" id="delChk" name="delChk" value="' + board.board_id + '"/></td>';
 	        dataHtml += '<td>' + rnum + '</td>';
 	        dataHtml += '<td>' + board.board_nm + '</td>';
 	        dataHtml += '<td>' + board.board_reply_yn + '</td>';
@@ -179,6 +180,7 @@ var dataSource2;
 //     	var delBoardId = delID
     	
     }	
+    // 체크박스를 클릭하면 배열에 해당 게시글 아이디가 push될 수 있는 함수 만들어서 -> del 특정 버튼 클릭하면 배열에 포함된 게시판 삭제할 수 있도록
     	
     
     
