@@ -1,0 +1,63 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'ABE'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'						// 스프링시큐리티
+	implementation 'org.springframework.boot:spring-boot-starter-web'							// 스프링 웹
+	compileOnly 'org.projectlombok:lombok'														// 롬복
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'								// 스프링 개발툴	
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	/* 그래들 추가 */
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'									// JSP
+	//implementation 'javax.servlet:jstl'															// JSTL			
+	implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '2.0.0'	// JSTL
+	
+	implementation 'org.springframework.boot:spring-boot-starter'									// logback
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'										// swagger
+	
+	
+
+	implementation 'org.postgresql:postgresql:42.5.0'												// postgreSQL	
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'							// log4jdbc-log4j2
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'						// mybatis
+	implementation 'org.mybatis:mybatis-spring:3.0.1'												// mybatis
+	implementation "org.mybatis:mybatis:3.4.5"														// mybatis
+	
+	implementation 'org.apache.commons:commons-lang3:3.12.0'										// Apache Commons Lang 라이브러리 
+	
+	
+}
+
+
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

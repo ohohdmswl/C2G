@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+	<select id="selectBoardAdList0" resultType="map">
+			SELECT
+					board_id
+					, wrtr
+					, cnt 
+					, created
+		FROM		testBoards
+	</select>
+	<select id="selectBoardAdList1" resultType="boardVO" parameterType="boardVO">
+			SELECT
+					board_id
+					, wrtr
+					, cnt 
+					, created
+		FROM		testBoards
+	</select>
+	<select id="selectBoardAdSearchList" parameterType="boardVO" resultType="map">
+			SELECT
+					board_id
+					, wrtr
+					, cnt 
+					, created
+		FROM		testBoards
+	</select>
+
+
+</mapper>
