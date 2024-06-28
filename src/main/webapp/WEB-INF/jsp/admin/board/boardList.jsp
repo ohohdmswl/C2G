@@ -74,7 +74,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
             },
 			success : function(result){
 				
-				
+				 
 // 				console.log("jsp내 ajax 석세스는 하냐");
 				console.log("jsp내 ajax 확인 : ", result.searchList);
 				console.log("jsp내 ajax 확인 : ", result.searchList2);
@@ -145,7 +145,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
 //         pageRange (현재 페이지 범위 default : 2 / 모든페이지 : null)
 //         callback
         
-        
+        // 변경이 되었나 메인으로
         
         
         
