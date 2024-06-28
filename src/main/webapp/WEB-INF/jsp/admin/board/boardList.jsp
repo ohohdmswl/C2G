@@ -31,7 +31,7 @@ div{
 <div class = "">
 	<div>
 		<input type="text" id="searchKeyword" name="searchKeyword" value="" placeholder="게시판 이름을 입력해주세요"  >
-		<a><img alt="검색" src=""  /></a>
+		<a href="javascript:fncGetData('');"><img alt="검색" src=""  /></a>
 	</div>
 </div>
 <!-- // 검색영역 -->
@@ -52,7 +52,6 @@ div{
     					<th>게시글수</th>
     					<th>삭제</th>
     			</thead>
-<!-- 		        <div id="data-container2"></div> -->
 		        <tbody id="data-container2"></tbody>
     		</table>
     	</div>
@@ -82,7 +81,7 @@ var dataSource2;
 
 	// onload
     $(function () {
-    	fn_getData();
+    	fncGetData();
     })// onload
     	
     	// ----------------- paginationJS(페이징) --------------- //
@@ -92,7 +91,7 @@ var dataSource2;
         var container2
         var pagination;
         // paginationJS 페이징 생성
-        function initializePagination(dataSource) {
+        function fncInitPagination(dataSource) {
 			container2 = $('#pagination2');
             container2.pagination({
 	        	// 페이지네이션 설정값 세팅(pagination객체 내)
@@ -102,14 +101,14 @@ var dataSource2;
 	        	autoHideNext: true,							// 다음 버튼 자동설정
 				dataSource : dataSource2,					// 데이터
 	            callback: function (data, pagination) {
-	            	fn_drawTb(data, pagination); 			// 콜백함수
+	            	fncDrawTb(data, pagination); 			// 콜백함수
 	        	}// 콜백함수 종료
 	    	})// container2.pagination 객체 end
        }// initializePagination
     	// ----------------- paginationJS(페이징) --------------- //
     
     // 목록 데이터 가져오기
-	function fn_getData(){
+	function fncGetData(){
     	// data 배열 가져오기 위한 ajax(모든 데이터 가져온 후 페이징 될 수 있도록 동기방식, async: false)
         $.ajax({
 			url : contextPath + "/adm/board/boardAdSearchList",
@@ -124,9 +123,7 @@ var dataSource2;
 				xhr.setRequestHeader("X-CSRF-TOKEN", token);
             },
 			success : function(result){
-				console.log("jsp내 ajax 확인 : ", result.searchList);
 				console.log("jsp내 ajax 확인 : ", result.searchList2);
-
 				// 받아온 데이터에서 cnt 값을 받아 dataSource에 넣기 위한 반복문
 // 				var cntVal;
 // 				for(var i=0; i<result.searchList2.length; i++){
@@ -136,7 +133,7 @@ var dataSource2;
 				dataSource2 = result.searchList2;
 			    
 				// paginationJS 초기화
-            	initializePagination(dataSource2);
+            	fncInitPagination(dataSource2);
 			},
 			error : function(xhr, status, error) {
 				console.log("error : ", error);
@@ -145,7 +142,7 @@ var dataSource2;
 	};// getData()
     
     // paginationJS 테이블 생성 콜백함수
-    function fn_drawTb(data, pagination){
+    function fncDrawTb(data, pagination){
     	var dataHtml = '<table>';
 // 			dataHtml = '<tr>'  
 // 							+ '<td>' + '체크' + '</td>'
@@ -158,21 +155,30 @@ var dataSource2;
 // 						+ '</tr>';// 열제목 작성 필요
 						
 	    $.each(data, function (index, board) {
-	        dataHtml += '<tr>';
-	        dataHtml += '<td>' +  + '</td>';
-	        dataHtml += '<td>' +  + '</td>';
+	    	
+	    	// 게시물 번호 = 전체 게시물 개수 - ((현재 페이지 -1) * 페이지당 게시물 개수) - 현재 인덱스
+	    	var rnum = pagination.totalNumber - ( (pagination.pageNumber - 1 ) * pagination.pageSize) - index
+	    	
+	    	dataHtml += '<tr id="board' + rnum + '">';
+	    	dataHtml += '<td><input type="checkbox" id="delChk" name="delChk"/></td>';
+	        dataHtml += '<td>' + rnum + '</td>';
 	        dataHtml += '<td>' + board.board_nm + '</td>';
 	        dataHtml += '<td>' + board.board_reply_yn + '</td>';
 	        dataHtml += '<td>' + board.board_cmnt_yn + '</td>';
 	        dataHtml += '<td>' + board.board_pst_cnt + '</td>';
-	        dataHtml += '<td>' + '<a href="">'+'삭제'+'</a>' + '</td>';
+// 	        dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.data-delID);" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
+			dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.getAttribute(\'data-delID\'));" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
 	        dataHtml += '</tr>';
 	    });
 // 	    dataHtml += '</table>';
 	    $("#data-container2").html(dataHtml);
    	}
     	
+    function fncDelOne(delId){
+    	console.log("클릭한 글의 아이디 확인: ", delId);
+//     	var delBoardId = delID
     	
+    }	
     	
     
     

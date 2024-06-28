@@ -26,7 +26,8 @@
 	</select>
 	<select id="selectBoardAdSearchList" parameterType="boardVO" resultType="map">
 		SELECT
-					board_id
+					ROW_NUMBER() OVER(ORDER BY created DESC, board_id DESC)
+					, board_id
 					, wrtr
 					, board_nm
 					, created
