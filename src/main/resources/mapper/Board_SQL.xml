@@ -6,25 +6,42 @@
 			SELECT
 					board_id
 					, wrtr
-					, cnt 
+					, board_nm
 					, created
+					, board_cmnt_yn
+					, board_reply_yn
+					, board_pst_cnt
 		FROM		testBoards
 	</select>
 	<select id="selectBoardAdList1" resultType="boardVO" parameterType="boardVO">
 			SELECT
 					board_id
 					, wrtr
-					, cnt 
+					, board_nm
 					, created
+					, board_cmnt_yn
+					, board_reply_yn
+					, board_pst_cnt
 		FROM		testBoards
 	</select>
 	<select id="selectBoardAdSearchList" parameterType="boardVO" resultType="map">
-			SELECT
+		SELECT
 					board_id
 					, wrtr
-					, cnt 
+					, board_nm
 					, created
+					, board_cmnt_yn
+					, board_reply_yn
+					, board_pst_cnt
+					, board_use_yn
+					
+					
 		FROM		testBoards
+		WHERE		board_use_yn = 'Y'
+					<if test="(searchKeyword != null) and (!searchKeyword.equals(''))">
+     					AND board_nm Like CONCAT('%', #{searchKeyword}, '%')
+					</if>
+<!-- 	     LIMIT  #{recordCountPerPage} OFFSET #{firstIndex} -->
 	</select>
 
 
