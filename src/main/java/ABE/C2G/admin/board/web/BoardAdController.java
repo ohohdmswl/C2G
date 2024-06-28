@@ -32,11 +32,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping(value = "/adm/board/")
-//@CrossOrigin(origins = "http://localhost:8080")
 public class BoardAdController {
 
 	// 관리자-게시판 service
-//	@Autowired(name = "boardAdService")
 	@Autowired
 	private BoardAdService boardAdService;
 	
@@ -53,10 +51,6 @@ public class BoardAdController {
 			) throws IOException, SQLException {
 		logger.info("--- 관리자 게시판 목록페이지 조회 start ---");
 
-//		logger.info("# DB연결 테스트 : " + boardAdService.selectBoardAdList());
-		
-//		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
-//		logger.info("# DB연결 테스트2 : " + boardAdService.selectBoardAdList(searchVO));
 		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
 		
 		logger.info("--- 관리자 게시판 목록페이지 조회 end ---");
@@ -64,13 +58,10 @@ public class BoardAdController {
 //		return "admin/board/pagnationExample";
 	}
 	
-//	@RequestMapping(value = "boardAdSearchList", method = RequestMethod.POST)
 	@ApiOperation(value="관리자 게시판 검색결과 목록 조회", notes="관리자 게시판 검색결과 목록 조회한다.")
 	@ResponseBody
 	@PostMapping("boardAdSearchList")
-//	@GetMapping("boardAdSearchList")
-//	public List<Map<String, Object>> boardAdSearchListView(@ModelAttribute("searchVO") BoardVO searchVO, 
-			public Map<String, Object> boardAdSearchListView(@ModelAttribute("searchVO") BoardVO searchVO, 
+	public Map<String, Object> boardAdSearchListView(@ModelAttribute("searchVO") BoardVO searchVO, 
 			ModelMap model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response
 			) throws IOException, SQLException {
 		logger.info("--- 관리자 게시판 검색결과 목록 조회 start ---");
@@ -78,14 +69,11 @@ public class BoardAdController {
 		logger.info("# 검색결과 ajax 파람2 : {}" , paramMap);
 		
 		Map<String, Object> SearchList1 = new HashMap<String, Object>(); 
-		// list로 보냈을 때 json이 제대로 읽혀질지가 문제긴 해
 		List<Map<String, Object>> searchList2 = boardAdService.selectBoardAdSearchList(searchVO); 
-		
-		
 		SearchList1.put("searchList2", searchList2);
+		
 		logger.info("--- 관리자 게시판 검색결과 목록 조회 end ---");
 		return SearchList1; //map
-//		return searchList2;
 	}
 
 	
