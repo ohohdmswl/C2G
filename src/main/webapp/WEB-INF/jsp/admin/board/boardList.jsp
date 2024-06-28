@@ -14,22 +14,38 @@
     <link href="${pageContext.request.contextPath}/css/pagination.css" rel="stylesheet" type="text/css">
 <script>var contextPath = "${pageContext.request.contextPath}";</script>
 <title>SometingProject</title>
+
+
+<style type="text/css">
+div{
+	border: 1px solid black;
+}
+</style>
+
 </head>
 <body>
 
+<h2>게시판</h2>
 
-게시판 리스트 jsp
+<!-- 검색영역 //-->
+<div class = "">
+	<div>
+		<input type="text" id="" name="" value="" placeholder="게시판 이름을 입력해주세요"  >
+		<a><img alt="검색" src=""  /></a>
+	</div>
+</div>
+<!-- // 검색영역 -->
 
 
 
-
-
+<!-- 게시판 목록영역 //-->
 <div>
     <section>
         <div id="data-container2"></div>
         <div id="pagination2"></div>
     </section>
 </div>
+<!-- // 게시판 목록영역 -->
 
 
 
@@ -51,6 +67,8 @@ var header = $("meta[name='_csrf_header']").attr("content");
     	
     	// paginationJS 객체에서 사용할 data 배열
     	var dataSource = [];
+    	var dataSource2 ;
+    	
     	// data 배열 가져오기 위한 ajax(모든 데이터 가져온 후 페이징 될 수 있도록 동기방식, async: false)
         $.ajax({
 			url : contextPath + "/adm/board/boardAdSearchList",
@@ -74,6 +92,9 @@ var header = $("meta[name='_csrf_header']").attr("content");
 					cntVal = result.searchList2[i].cnt;
 					dataSource.push(cntVal);
 				}
+				
+				dataSource2 = result.searchList2;
+				
 			},
 			error : function(xhr, status, error) {
 				console.log("error : ", error);
@@ -85,30 +106,57 @@ var header = $("meta[name='_csrf_header']").attr("content");
         var pageNumber;
         var pageSize;
         var pageRange
+        var container2
         
+        var pagination;
         // paginationJS 페이징 생성
-        var container2 = $('#pagination2');
+         container2 = $('#pagination2');
         container2.pagination({
         	// 페이지네이션 설정값 세팅(pagination객체 내)
-        	pageSize: 10,						// 페이지당 데이터 항목 수 10
-        	pageNumber: 1,						// 첫 페이지 번호 1
-        	autoHidePrevious: true,				// 이전 버튼 자동설정
-        	autoHideNext: true,					// 다음 버튼 자동설정
-			dataSource : dataSource,			// 데이터
+        	pageSize: 10,								// 페이지당 데이터 항목 수 10
+        	pageNumber: 1,								// 첫 페이지 번호 1
+        	autoHidePrevious: true,						// 이전 버튼 자동설정
+        	autoHideNext: true,							// 다음 버튼 자동설정
+			dataSource : dataSource2,					// 데이터
             callback: function (data, pagination) {
-                var dataHtml = '<ul>';
-                $.each(data, function (index, item) {
-                    dataHtml += '<li>' + item + '</li>';
-                });
-                dataHtml += '</ul>';
-                $("#data-container2").html(dataHtml);
-            }
-        })// 페이지네이션 표출 함수 종료
+            	fn_drawTb(data, pagination) 			// 콜백함수
+        	}// 콜백함수 종료
+    	})// container2.pagination 객체 end
     	// ----------------- paginationJS(페이징) --------------- //
-        
+
+    
+    
     })// onload
     
-    
+    // paginationJS 테이블 생성 콜백함수
+    function fn_drawTb(data, pagination){
+    	var dataHtml = '<table>';
+			dataHtml = '<tr>'  
+							+ '<td>' + '체크' + '</td>'
+							+ '<td>' + '번호' + '</td>'
+							+ '<td>' + '게시판명' + '</td>'
+							+ '<td>' + '답글' + '</td>'
+							+ '<td>' + '덧글' + '</td>'
+							+ '<td>' + '게시글수' + '</td>'
+							+ '<td>' + '삭제' + '</td>'
+						+ '</tr>';// 열제목 작성 필요
+	    $.each(data, function (index, item) {
+	        dataHtml += '<tr>';
+	        dataHtml += '<td>' +  + '</td>';
+	        dataHtml += '<td>' + item.cnt + '</td>';
+	        dataHtml += '<td>' + item + '</td>';
+	        dataHtml += '<td>' + item + '</td>';
+	        dataHtml += '<td>' + item + '</td>';
+	        dataHtml += '<td>' + item + '</td>';
+	        dataHtml += '<td>' + item + '</td>';
+	        dataHtml += '</tr>';
+	    });
+	    dataHtml += '</table>';
+	    $("#data-container2").html(dataHtml);
+   	}
+    	
+    	
+    	
     
     
     	// ----------------- paginationJS sample ------------ //
