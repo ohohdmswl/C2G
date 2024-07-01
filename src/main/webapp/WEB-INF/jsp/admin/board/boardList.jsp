@@ -78,6 +78,7 @@ var header = $("meta[name='_csrf_header']").attr("content");
 
 // paginationJS 객체에서 사용할 data 배열
 var dataSource2;
+var dataCnt
 
 	// onload
     $(function () {
@@ -92,6 +93,10 @@ var dataSource2;
         var pagination;
         // paginationJS 페이징 생성
         function fncInitPagination(dataSource) {
+        	
+        	// 데이터 없는 경우 강제 배열 생성(paginationJS는 데이터 없는 경우 페이지네이션 생성하지 않음) -> 강제 페이징 생성 위한 배열
+        	if(dataSource.length <= 0) { dataSource = [{cnt : -1}] };
+        	
 			container2 = $('#pagination2');
             container2.pagination({
 	        	// 페이지네이션 설정값 세팅(pagination객체 내)
@@ -100,11 +105,13 @@ var dataSource2;
 // 	        	pageRange: 3, 								// 페이지네이션 블록 개수 (default : 6)
 	        	autoHidePrevious: true,						// 이전 버튼 자동설정
 	        	autoHideNext: true,							// 다음 버튼 자동설정
-				dataSource : dataSource2,					// 데이터
+				dataSource : dataSource,					// 데이터
 	            callback: function (data, pagination) {
 	            	fncDrawTb(data, pagination); 			// 콜백함수
 	        	}// 콜백함수 종료
-	    	})// container2.pagination 객체 end
+            
+            
+            })// container2.pagination 객체 end
        }// initializePagination
     	// ----------------- paginationJS(페이징) --------------- //
     
@@ -132,7 +139,8 @@ var dataSource2;
 // 					dataSource.push(cntVal);
 // 				}
 				dataSource2 = result.searchList2;
-			    
+	        	console.log("데이터 개수 확인: ", dataSource2.length);
+
 				// paginationJS 초기화
             	fncInitPagination(dataSource2);
 			},
@@ -144,37 +152,41 @@ var dataSource2;
     
     // paginationJS 테이블 생성 콜백함수
     function fncDrawTb(data, pagination){
-    	var dataHtml = '<table>';
-// 			dataHtml = '<tr>'  
-// 							+ '<td>' + '체크' + '</td>'
-// 							+ '<td>' + '번호' + '</td>'
-// 							+ '<td>' + '게시판명' + '</td>'
-// 							+ '<td>' + '답글' + '</td>'
-// 							+ '<td>' + '덧글' + '</td>'
-// 							+ '<td>' + '게시글수' + '</td>'
-// 							+ '<td>' + '삭제' + '</td>'
-// 						+ '</tr>';// 열제목 작성 필요
-						
-	    $.each(data, function (index, board) {
-	    	
-	    	// 게시물 번호 = 전체 게시물 개수 - ((현재 페이지 -1) * 페이지당 게시물 개수) - 현재 인덱스
-	    	var rnum = pagination.totalNumber - ( (pagination.pageNumber - 1 ) * pagination.pageSize) - index
-	    	
-	    	dataHtml += '<tr id="board' + rnum + '">';
-	    	dataHtml += '<td><input type="checkbox" id="delChk" name="delChk" value="' + board.board_id + '"/></td>';
-	        dataHtml += '<td>' + rnum + '</td>';
-	        dataHtml += '<td>' + board.board_nm + '</td>';
-	        dataHtml += '<td>' + board.board_reply_yn + '</td>';
-	        dataHtml += '<td>' + board.board_cmnt_yn + '</td>';
-	        dataHtml += '<td>' + board.board_pst_cnt + '</td>';
-// 	        dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.data-delID);" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
-			dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.getAttribute(\'data-delID\'));" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
-	        dataHtml += '</tr>';
-	    });
-// 	    dataHtml += '</table>';
+		console.log("data가 뭐야 : ", data);
+    	var dataHtml = '';
+    	
+    	if(pagination.totalNumber == 1 &&  data[0].cnt == -1){
+//     	if((pagination.totalNumber == 1 &&  data[0].cnt == -1) || pagination.totalNumber <= 0){
+			// 게시물 존재하지 않는 경우
+		    dataHtml += '<tr>';
+		    dataHtml += '<td colspan="7"> 데이터가 존재하지 않습니다. </td>';
+		    dataHtml += '</tr>';
+		} else if (pagination.totalNumber > 0){
+			// 게시물 존재하는 경우
+		    $.each(data, function (index, board) {
+		    	
+		    	// 게시물 번호 = 전체 게시물 개수 - ((현재 페이지 -1) * 페이지당 게시물 개수) - 현재 인덱스
+		    	var rnum = pagination.totalNumber - ( (pagination.pageNumber - 1 ) * pagination.pageSize) - index
+		    	
+		    	dataHtml += '<tr id="board' + rnum + '">';
+		    	dataHtml += '<td><input type="checkbox" id="delChk" name="delChk" value="' + board.board_id + '"/></td>';
+		        dataHtml += '<td>' + rnum + '</td>';
+		        dataHtml += '<td>' + board.board_nm + '</td>';
+		        dataHtml += '<td>' + board.board_reply_yn + '</td>';
+		        dataHtml += '<td>' + board.board_cmnt_yn + '</td>';
+		        dataHtml += '<td>' + board.board_pst_cnt + '</td>';
+				dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.getAttribute(\'data-delID\'));" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
+		        dataHtml += '</tr>';
+		    });
+			
+		    
+		    
+		}
+		
+    	
+    	
 	    $("#data-container2").html(dataHtml);
    	}
-    	
     function fncDelOne(delId){
     	console.log("클릭한 글의 아이디 확인: ", delId);
 //     	var delBoardId = delID
