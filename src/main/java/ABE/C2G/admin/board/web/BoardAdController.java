@@ -2,6 +2,7 @@ package ABE.C2G.admin.board.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,30 @@ public class BoardAdController {
 		return SearchList1; //map
 	}
 
+	@ApiOperation(value="관리자 게시판 삭제", notes="관리자 게시판을 삭제한다.")
+	@ResponseBody
+	@PostMapping("boardAdListDel")
+	public Map<String, Object> boardAdListDel(@ModelAttribute("searchVO") BoardVO searchVO, 
+			ModelMap model, @RequestParam(value="arr[]") String[] delArr, HttpServletRequest request, HttpServletResponse response
+			) throws IOException, SQLException {
+		logger.info("--- 관리자 게시판 리스트 삭제 start ---");
+
+		// 삭제할 게시판 id를 배열에 추가
+	    ArrayList<String> delArray = new ArrayList<String>();
+	    for (String element : delArr) {
+	    	logger.info("# ajax arr[] element : {}", element);
+	    	delArray.add(element);
+	    }
+		logger.info("# delArray : {}" , delArray);
+		
+		Map<String, Object> resultData = new HashMap<String, Object>(); 
+		boolean delResult = boardAdService.deleteBoardAdList(delArray);
+		logger.info("# del result : {}" , delResult);
+		resultData.put("delResult", delResult);
+		
+		logger.info("--- 관리자 게시판 리스트 삭제 end ---");
+		return resultData; //map
+	}
 	
 	
 	

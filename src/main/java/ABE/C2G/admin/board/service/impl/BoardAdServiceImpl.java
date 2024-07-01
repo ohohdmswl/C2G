@@ -1,5 +1,7 @@
 package ABE.C2G.admin.board.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,4 +40,17 @@ public class BoardAdServiceImpl implements BoardAdService{
 	public List<Map<String, Object>> selectBoardAdSearchList(BoardVO searchVO) {
 		return cmmnDAO.selectList("board.selectBoardAdSearchList", searchVO);
 	}
+	
+	/**
+	 * 관리자 게시판 삭제
+	 */
+	@Override
+	public boolean deleteBoardAdList(ArrayList<String> delArray) {
+		boolean succYN = false;
+		int delCnt = cmmnDAO.delete("board.deleteBoardAdList", delArray);
+		System.out.println("체크 : " +  delCnt);
+		if( delCnt > 0) {succYN = true;}
+		return succYN;
+	}
+	
 }

@@ -30,8 +30,8 @@ div{
 <!-- 검색영역 //-->
 <div class = "">
 	<div>
-		<input type="text" id="searchKeyword" name="searchKeyword" value="" placeholder="게시판 이름을 입력해주세요"  >
-		<a href="javascript:fncGetData('');"><img alt="검색" src=""  /></a>
+		<input type="text" id="searchKeyword" name="searchKeyword" value="" placeholder="게시판 이름을 입력해주세요"  onKeyDown="if(event.key === 'Enter') { fncGetData(); }">
+		<a href="javascript:fncGetData('');" ><img alt="검색" src=""  /></a>
 	</div>
 </div>
 <!-- // 검색영역 -->
@@ -58,6 +58,7 @@ div{
     <section>
         <div id="pagination2"></div>
     </section>
+    <a href="javascript:fncDelArr('');" >삭제</a>
 </div>
 <!-- // 게시판 목록영역 -->
 
@@ -178,18 +179,79 @@ var dataCnt
 				dataHtml += '<td><a href="javascript:void(0);" onclick="fncDelOne(this.getAttribute(\'data-delID\'));" id="deleteLink" name="deleteLink" data-delID="' + board.board_id + '">삭제</a></td>';
 		        dataHtml += '</tr>';
 		    });
-			
-		    
 		    
 		}
-		
-    	
-    	
 	    $("#data-container2").html(dataHtml);
    	}
+    	
+    	
+    	
     function fncDelOne(delId){
-    	console.log("클릭한 글의 아이디 확인: ", delId);
+    	// 바로 삭제 에이젝스 함수 호출
+    	var arr = [];
+    	arr.push(delId);
+    	
+    	fncDel(arr);
+   	}	
+    
+    function fncDelArr(){
+    	// 배열에 담고 바로 에이젝스 함수 호출	
+    	var arr = [];
+    	
+    	// 체크박스 요소 가져오기
+    	var checked = document.querySelectorAll('input[type="checkbox"]');
+    	console.log("체크요소 확인 : ", checked);
+    	for(var idx in checked){
+    		
+			if(checked[idx].checked == true){
+	    		arr.push(checked[idx].value)
+			}
+    	}
+    	console.log("최종 배열 확인 : ",arr );
+    	
+    	//에이젝스 호출
+    	fncDel(arr);
+   	}// fnc	
+    
+    	
+    	
+    function fncDel(delBoardId){
+    	console.log("클릭한 글의 아이디 확인: ", delBoardId);
+    	
+    	var delArr = [];
+    	
+    	for(var idx in delBoardId ){
+    		delArr.push(delBoardId[idx]);
+    	}
+    	
+    	console.log("for문 이후 arr : ", delArr);
+    	
+    	
+		$.ajax({
+			 type : 'post',
+			 url : contextPath + "/adm/board/boardAdListDel",
+			 data : {arr : delArr},
+			 dataType : 'json',
+			 success : function(res){
+				console.log("삭제 결과 : ", res.delResult); 
+				if(res.delResult){
+					location.href = contextPath + "/adm/board/boardAdListView";
+				} else {
+		    		alert ("삭제되지 않았습니다.");			    		
+			    	location.reload(true);
+				}
+			 },// success
+			 error : function(xhr, status, error) {
+				console.log("error : ", error);
+			 }
+		});
+		    	
+    	
+    	
 //     	var delBoardId = delID
+
+		
+
     	
     }	
     // 체크박스를 클릭하면 배열에 해당 게시글 아이디가 push될 수 있는 함수 만들어서 -> del 특정 버튼 클릭하면 배열에 포함된 게시판 삭제할 수 있도록

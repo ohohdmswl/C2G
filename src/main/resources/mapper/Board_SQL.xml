@@ -26,7 +26,7 @@
 	</select>
 	<select id="selectBoardAdSearchList" parameterType="boardVO" resultType="map">
 		SELECT
-					ROW_NUMBER() OVER(ORDER BY created DESC, board_id DESC)
+					ROW_NUMBER() OVER(ORDER BY created DESC, CAST(board_id AS integer) DESC)
 					, board_id
 					, wrtr
 					, board_nm
@@ -44,6 +44,15 @@
 					</if>
 <!-- 	     LIMIT  #{recordCountPerPage} OFFSET #{firstIndex} -->
 	</select>
+	
+	<delete id="deleteBoardAdList" parameterType="java.util.List">
+		DELETE FROM	
+					testBoards
+		WHERE		board_id IN
+					<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+						#{item}
+					</foreach>	
+	</delete>
 
 
 </mapper>
