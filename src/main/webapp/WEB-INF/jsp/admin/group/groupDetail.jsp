@@ -35,6 +35,10 @@ div{
 .detailRight{
 	width: 30%;
 }
+.groupApply {
+	border: 2px solid red;
+	
+}
 
 </style>
 
@@ -46,7 +50,9 @@ div{
 <div><!--  // 전체 영역 -->
 
 	<div><!--  // 스터디 배경 및 요약 -->
-	
+		<img alt = "스터디 배경" width="100%"/>
+		<h2>그룹 이름</h2>
+		<h4>그룹 상세 내역</h4>
 	</div><!-- // 스터디 배경 및 요약 -->
 	
 	
@@ -118,9 +124,35 @@ div{
 
 
 
-<!-- 게시판 목록영역 //-->
+<!-- // 참여 모달 -->
+	<div class="groupApply">
+		<div><!-- // 모달 컨텐츠 -->
+			<div><!--  // 닫기 버튼 -->
+				<img src="닫기" />
+			</div><!--  닫기 버튼 // -->
+			<div><!-- // 모달 그룹 요약 설명 -->
+				<h2>그룹 이름</h2>
+				<span>그룹 설명 요약</span>
+				<span>그룹 설명 요약</span>
+				<span>그룹 설명 요약</span>
+				<span>그룹 설명 요약</span>
+			</div><!-- 모달 그룹 요약 설명 // -->
+			<div><!-- // form  -->
+				<form class="modalApply">
+					<h3>그룹 참여 모달</h3>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<label><input type="checkbox" />그룹 참여 조건 동의?</label>
+					<button>참여하기</button>
+				</form>
+			</div><!-- form // -->
+		</div><!-- 모달 컨텐츠 // -->
+	</div>
 
-<!-- // 게시판 목록영역 -->
+<!-- 참여 모달 //-->
 
 
 
