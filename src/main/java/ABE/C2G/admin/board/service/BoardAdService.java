@@ -9,6 +9,8 @@ import ABE.C2G.cmmn.model.BoardVO;
 
 public interface BoardAdService {
 
+	public List<Map<String, Object>> selectDBtest();
+	
 	public List<Map<String, Object>> selectBoardAdList();
 
 	public List<BoardVO> selectBoardAdList(BoardVO searchVO);
@@ -16,5 +18,6 @@ public interface BoardAdService {
 	public List<Map<String, Object>> selectBoardAdSearchList(BoardVO searchVO);
 
 	public boolean deleteBoardAdList(ArrayList<String> delArray);
+
 
 }

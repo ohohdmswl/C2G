@@ -52,13 +52,18 @@ public class BoardAdController {
 			) throws IOException, SQLException {
 		logger.info("--- 관리자 게시판 목록페이지 조회 start ---");
 
-		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
+//		model.addAttribute("boardList",boardAdService.selectBoardAdList(searchVO));
+		model.addAttribute("DBtest",boardAdService.selectDBtest());
+		
+		
+		
 		
 		logger.info("--- 관리자 게시판 목록페이지 조회 end ---");
 		return "admin/board/boardList";
 //		return "admin/board/pagnationExample";
 	}
 	
+	/*
 	@ApiOperation(value="관리자 게시판 검색결과 목록 조회", notes="관리자 게시판 검색결과 목록 조회한다.")
 	@ResponseBody
 	@PostMapping("boardAdSearchList")
@@ -101,7 +106,7 @@ public class BoardAdController {
 		logger.info("--- 관리자 게시판 리스트 삭제 end ---");
 		return resultData; //map
 	}
-	
+	*/
 	
 	
 }

@@ -25,6 +25,12 @@ public class BoardAdServiceImpl implements BoardAdService{
 //	@Autowired
 //	EnvironmentCapable env;
 
+	
+	@Override
+	public List<Map<String, Object>> selectDBtest() {
+		return cmmnDAO.selectList("board.selectDBtest");	
+	}
+	
 	@Override
 //	public List<BoardVO> selectBoardAdList(BoardVO searchVO) {
 	public List<Map<String, Object>> selectBoardAdList() {

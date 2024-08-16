@@ -42,7 +42,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'									// logback
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'										// swagger
 	
-	
+	/* 기존의 JDBC로 연결된 PostgreSQL를 DBCP의 HikariCP로 변경 */
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'							// DB + HikariCP + PostgreSQL 연결
 
 	implementation 'org.postgresql:postgresql:42.5.0'												// postgreSQL	
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'							// log4jdbc-log4j2
